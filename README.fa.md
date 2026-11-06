@@ -38,6 +38,9 @@ SamS فقط **فرانت‌اند** یک چت‌بات است. با یک API س�
 - **شخصیت / اهداف / خطوط قرمز** برای هر چت و سوییچ ذخیره در تاریخچه
 - کپی پاسخ، اسکرول خودکار، `Enter` برای ارسال و `Shift+Enter` برای خط جدید
 - **۸۰ خوشامدگویی** متناسب با ساعت روز (صبح، ظهر، عصر، شب، نیمه‌شب)
+- دکمه‌های پیشنهاد شروع سریع در صفحه‌ی اصلی (*Explain something simply*، *Draft a message*، *Help with code*، *Brainstorm ideas*)
+- جستجوی چت‌ها در سایدبار (`Ctrl K`) و نمایش عنوان چت در هدر
+- عملیات پاسخ (کپی، تولید دوباره، لایک، دیسلایک، شاخه)، دکمه‌های اشتراک‌گذاری / دانلود و دکمه‌ی **توقف** هنگام پاسخ‌دهی
 
 **🎨 طراحی**
 - حالت تاریک و روشن با پالت مشکی (`#111111`، `#151515`، `#20201f`) و ذخیره روی هر دستگاه
@@ -47,8 +50,8 @@ SamS فقط **فرانت‌اند** یک چت‌بات است. با یک API س�
 - فاوآیکن، آیکن اپل، مانیفست وب و تگ‌های Open Graph
 
 **👤 حساب و تنظیمات**
-- ثبت‌نام / ورود / خروج با اعتبارسنجی و بازیابی نشست
-- صفحه‌ی تنظیمات: پروفایل و آمار، تم، انیمیشن، پیش‌فرض‌های چت، *حذف همه‌ی چت‌ها*
+- ثبت‌نام / ورود / خروج با اعتبارسنجی، نوار قدرت رمز عبور و بازیابی نشست
+- صفحه‌ی تنظیمات: پروفایل و آمار (با نشان ادمین)، تم، انیمیشن، پیش‌فرض‌های چت، *بازنشانی پیش‌فرض‌ها*، *حذف همه‌ی چت‌ها*
 - عنوان‌های خنده‌دار و تصادفی صفحات 😄
 
 **🛠 پنل ادمین**
@@ -56,12 +59,21 @@ SamS فقط **فرانت‌اند** یک چت‌بات است. با یک API س�
 - جدول ورکرها و نشست‌های شما همراه با حذف
 - فقط برای ایمیل‌های `VITE_ADMIN_EMAILS` نمایش داده می‌شود (فقط در رابط؛ بخش [امنیت](#-نکات-امنیتی))
 
+## 📸 تصاویر
+
+| | |
+|:--:|:--:|
+| <img src="docs/screenshots/01-login.webp" alt="Login"><br><b>1 · ورود</b><br>صفحه‌ی ورود با سوییچ تاریک/روشن. | <img src="docs/screenshots/02-signup.webp" alt="Sign up"><br><b>2 · ثبت‌نام</b><br>ساخت حساب با نوار قدرت رمز عبور. |
+| <img src="docs/screenshots/03-home.webp" alt="New chat"><br><b>3 · چت جدید</b><br>خوشامدگویی متناسب با ساعت، جستجوی چت‌ها (Ctrl K)، کادر پیام و پیشنهادهای شروع سریع. | <img src="docs/screenshots/04-thinking.webp" alt="Thinking orb"><br><b>4 · اوربِ تفکر</b><br>اوربِ متحرک هنگام پاسخ‌دهی؛ دکمه‌ی ارسال به دکمه‌ی توقف تبدیل می‌شود. |
+| <img src="docs/screenshots/05-reply.webp" alt="Reply"><br><b>5 · پاسخ</b><br>ایموجی‌های سبک اپل و ردیف عملیات پاسخ؛ چت در سایدبار ذخیره می‌شود. | <img src="docs/screenshots/06-settings.webp" alt="Settings & profile"><br><b>6 · تنظیمات و پروفایل</b><br>پروفایل با آمار و نشان ادمین، ظاهر، پیش‌فرض‌های چت و بازنشانی. |
+| <img src="docs/screenshots/07-light.webp" alt="Light mode"><br><b>7 · حالت روشن</b><br>همان چت در تم روشن. |  |
+
 ## 🚀 شروع سریع
 
 </div>
 
 ```bash
-git clone https://github.com/kiomaku/sams-frontend.git
+git clone https://github.com/Kiomaku/sams-frontend.git
 cd sams-frontend
 cp .env.example .env        # سپس .env را ویرایش کنید
 npm install
@@ -155,7 +167,7 @@ server {
 ## 📖 صفحه‌ی آموزش
 
 یک راهنمای زیبا و دوزبانه (فارسی/English) به‌صورت گام‌به‌گام در [`docs/index.html`](docs/index.html) قرار دارد.
-فعال‌سازی در گیت‌هاب: **Settings ← Pages ← Source: GitHub Actions** (ورک‌فلوی `.github/workflows/pages.yml` پوشه‌ی `docs/` را منتشر می‌کند).
+آدرس زنده: **https://kiomaku.github.io/sams-frontend/**. برای فعال‌سازی روی فورک خودتان: **Settings ← Pages ← Build and deployment ← Deploy from a branch ← `main` / `/docs`**.
 
 ## 📁 ساختار پروژه
 
@@ -163,7 +175,7 @@ server {
 
 ```
 sams-frontend/
-├─ docs/                 صفحه‌ی آموزش (GitHub Pages) + API.md
+├─ docs/                 صفحه‌ی آموزش (GitHub Pages)، API.md، screenshots/
 ├─ public/               لوگو، فاوآیکن‌ها، مانیفست
 ├─ src/
 │  ├─ App.jsx            ورود، تم، وضعیت آنلاین

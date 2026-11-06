@@ -36,6 +36,9 @@ SamS is a complete **front end only** for a chatbot. It talks to a small JSON AP
 - Per-chat **personality / goals / red lines** and a *save to history* switch
 - Copy any reply, auto-scroll, `Enter` to send, `Shift+Enter` for a new line
 - **80 time-aware greetings** (morning, afternoon, evening, night, late night)
+- Quick-start suggestion chips on the home screen (*Explain something simply*, *Draft a message*, *Help with code*, *Brainstorm ideas*)
+- Chat search in the sidebar (`Ctrl K`) and the chat title in the header
+- Reply actions (copy, regenerate, like, dislike, branch), share / download buttons and a **stop** button while generating
 
 **🎨 Design**
 - Dark & light mode with a black palette (`#111111`, `#151515`, `#20201f`), remembered per device
@@ -45,8 +48,8 @@ SamS is a complete **front end only** for a chatbot. It talks to a small JSON AP
 - Favicon, Apple touch icon, web manifest, Open Graph tags
 
 **👤 Account & Settings**
-- Register / login / logout with validation and session restore
-- Settings page: profile & stats, theme, animations, chat defaults, *delete all chats*
+- Register / login / logout with validation, a password-strength meter and session restore
+- Settings page: profile & stats (with Admin badge), theme, animations, chat defaults, *reset to defaults*, *delete all chats*
 - Funny random page titles 😄
 
 **🛠 Admin panel**
@@ -54,10 +57,19 @@ SamS is a complete **front end only** for a chatbot. It talks to a small JSON AP
 - Workers table and your sessions with delete
 - Shown only to emails listed in `VITE_ADMIN_EMAILS` (UI-only gate, see [Security](#-security-notes))
 
+## 📸 Screenshots
+
+| | |
+|:--:|:--:|
+| <img src="docs/screenshots/01-login.webp" alt="Login"><br><b>1 · Login</b><br>Login with a dark/light switch. | <img src="docs/screenshots/02-signup.webp" alt="Sign up"><br><b>2 · Sign up</b><br>Create an account with a live password-strength meter. |
+| <img src="docs/screenshots/03-home.webp" alt="New chat"><br><b>3 · New chat</b><br>Time-aware greeting, chat search (Ctrl K), message box and quick-start suggestions. | <img src="docs/screenshots/04-thinking.webp" alt="Thinking orb"><br><b>4 · Thinking orb</b><br>Animated orb while SamS works; the send button turns into a stop button. |
+| <img src="docs/screenshots/05-reply.webp" alt="Reply"><br><b>5 · Reply</b><br>Apple-style emojis and a row of reply actions; the chat appears in the sidebar. | <img src="docs/screenshots/06-settings.webp" alt="Settings & profile"><br><b>6 · Settings & profile</b><br>Profile with stats and Admin badge, appearance, chat defaults, reset to defaults. |
+| <img src="docs/screenshots/07-light.webp" alt="Light mode"><br><b>7 · Light mode</b><br>The same chat in the light theme. |  |
+
 ## 🚀 Quick start
 
 ```bash
-git clone https://github.com/kiomaku/sams-frontend.git
+git clone https://github.com/Kiomaku/sams-frontend.git
 cd sams-frontend
 cp .env.example .env        # then edit .env
 npm install
@@ -141,13 +153,13 @@ server {
 ## 📖 Tutorial page
 
 A beautiful, bilingual (EN/فارسی) step-by-step guide lives in [`docs/index.html`](docs/index.html).
-Enable it on GitHub: **Settings → Pages → Source: GitHub Actions** (the workflow in `.github/workflows/pages.yml` publishes `docs/`).
+Live at **https://kiomaku.github.io/sams-frontend/**. To enable it on your own fork: **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `/docs`**.
 
 ## 📁 Project structure
 
 ```
 sams-frontend/
-├─ docs/                 tutorial page (GitHub Pages) + API.md
+├─ docs/                 tutorial page (GitHub Pages), API.md, screenshots/
 ├─ public/               logo, favicons, manifest
 ├─ src/
 │  ├─ App.jsx            auth gate, theme, online status
