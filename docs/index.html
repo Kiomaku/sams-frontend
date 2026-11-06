@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SamS — Tutorial · آموزش</title>
+<meta name="description" content="Install, configure and deploy the SamS chat frontend. / نصب، پیکربندی و استقرار رابط چت SamS">
+<meta name="theme-color" content="#1a8cff">
+<link rel="icon" href="assets/favicon.ico"><meta property="og:title" content="SamS — Tutorial"><meta property="og:image" content="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111;--c1:#151515;--c2:#20201f;--line:rgba(255,255,255,.09);--fg:#ececec;--mut:#9a9a96;--pri:#1a8cff;--pri2:#5cc8ff;--glow:rgba(26,140,255,.35)}
+[data-theme=light]{--bg:#fff;--c1:#f9f9f9;--c2:#f0f0ef;--line:rgba(0,0,0,.09);--fg:#0d0d0d;--mut:#6b6b67;--glow:rgba(26,140,255,.22)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 Inter,Vazirmatn,system-ui,sans-serif;overflow-x:hidden}
+html[lang=fa] body{font-family:Vazirmatn,Inter,sans-serif}html[lang=fa]{direction:rtl}
+html[lang=en] .fa,html[lang=fa] .en{display:none!important}
+a{color:var(--pri);text-decoration:none}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:12px 24px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--fg)}nav img{width:30px}
+nav .links{display:flex;gap:4px;margin-inline-start:auto;overflow-x:auto;scrollbar-width:none}
+nav .links a{color:var(--mut);padding:6px 12px;border-radius:99px;font-size:14px;white-space:nowrap;transition:.2s}
+nav .links a:hover,nav .links a.on{color:var(--fg);background:var(--c2)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--c2);color:var(--fg);padding:8px 16px;border-radius:99px;font:inherit;font-size:14px;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--pri)}.btn.pri{background:linear-gradient(135deg,var(--pri),#0a5fd0);border:0;color:#fff;box-shadow:0 8px 30px var(--glow)}
+.hero{position:relative;text-align:center;padding:110px 24px 80px;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 12s ease-in-out infinite;z-index:0}
+.o1{width:380px;height:380px;background:#1a8cff;top:-120px;left:8%}.o2{width:300px;height:300px;background:#7a5cff;top:40px;right:6%;animation-delay:-4s}.o3{width:240px;height:240px;background:#18d6c8;bottom:-90px;left:42%;animation-delay:-8s}
+@keyframes float{50%{transform:translate(30px,-40px) scale(1.12)}}
+.hero>*{position:relative;z-index:1}.logo{width:132px;filter:drop-shadow(0 20px 40px var(--glow));animation:bob 4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-10px)}}
+h1{font-size:clamp(38px,7vw,72px);line-height:1.1;font-weight:800;margin:18px 0 12px;background:linear-gradient(120deg,var(--fg),var(--pri2) 60%,var(--pri));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);max-width:640px;margin:0 auto 28px;font-size:18px}.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.stack{margin-top:36px}.stack img{max-width:100%;height:48px}
+section{max-width:1040px;margin:0 auto;padding:70px 24px}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800;margin-bottom:8px}.lead{color:var(--mut);margin-bottom:30px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--c1);border:1px solid var(--line);border-radius:20px;padding:20px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--pri) 50%,transparent);box-shadow:0 16px 40px var(--glow)}
+.card .ic{font-size:26px;margin-bottom:8px}.card h3{font-size:17px;margin-bottom:4px}.card p{color:var(--mut);font-size:14.5px}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:18px}
+.step{position:relative;background:var(--c1);border:1px solid var(--line);border-radius:20px;padding:20px 20px 20px 70px}
+html[lang=fa] .step{padding:20px 70px 20px 20px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:18px;inset-inline-start:18px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pri),#0a5fd0)}
+.step h3{margin-bottom:6px}.code{position:relative;margin:10px 0}
+pre{background:#0c0c0c;color:#e6edf3;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;overflow-x:auto;font-size:13.5px;line-height:1.6}
+.cp{position:absolute;top:8px;right:8px;z-index:2;font-size:12px;padding:4px 10px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;display:block;overflow-x:auto}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}th{color:var(--mut);font-weight:600}
+td code,.card code,p code,li code{background:var(--c2);padding:2px 6px;border-radius:6px;font-size:.88em}
+.tabs{display:flex;gap:6px;margin-bottom:10px}.tab{padding:7px 16px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mut);cursor:pointer;font:inherit;font-size:14px}.tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.panel{display:none}.panel.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.ep{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.m{font:600 12px 'JetBrains Mono',monospace;padding:3px 9px;border-radius:8px;color:#fff}
+.GET{background:#16a34a}.POST{background:#2563eb}.DELETE{background:#dc2626}.lock{font-size:12px;color:var(--mut)}
+details{background:var(--c1);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:10px}summary{cursor:pointer;font-weight:600}details p,details .code{margin-top:10px;color:var(--mut)}
+.note{border-inline-start:4px solid var(--pri);background:var(--c2);padding:12px 16px;border-radius:12px;margin:12px 0;font-size:14.5px}
+footer{text-align:center;color:var(--mut);padding:50px 24px;border-top:1px solid var(--line)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style></head>
+<body>
+<nav>
+  <a class="brand" href="#top"><img src="assets/logo.webp" alt="">SamS</a>
+  <div class="links">
+    <a href="#features"><span class="en">Features</span><span class="fa">امکانات</span></a><a href="#start"><span class="en">Quick start</span><span class="fa">شروع سریع</span></a><a href="#config">.env</a>
+    <a href="#deploy"><span class="en">Deploy</span><span class="fa">استقرار</span></a><a href="#views"><span class="en">Views</span><span class="fa">صفحه‌ها</span></a><a href="#api">API</a><a href="#custom"><span class="en">Customize</span><span class="fa">شخصی‌سازی</span></a><a href="#help"><span class="en">Help</span><span class="fa">رفع اشکال</span></a>
+  </div>
+  <button class="btn" id="lang" aria-label="language">EN / فا</button>
+  <button class="btn" id="theme" aria-label="theme">🌗</button>
+  <a class="btn" href="https://github.com/kiomaku/sams-frontend">GitHub</a>
+</nav>
+
+<header class="hero" id="top">
+  <i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>
+  <img class="logo" src="assets/logo.webp" alt="SamS">
+  <h1>SamS</h1>
+  <p class="sub"><span class="en">A beautiful ChatGPT-style frontend for your own chat API. Install it in minutes, make it yours.</span><span class="fa">یک رابط زیبا به سبک ChatGPT برای API چت خودتان. در چند دقیقه نصب کنید و شخصی‌سازی‌اش کنید.</span></p>
+  <div class="cta"><a class="btn pri" href="#start">🚀 <span class="en">Get started</span><span class="fa">شروع کنید</span></a><a class="btn" href="#api">🔌 API</a></div>
+  <div class="stack"><img src="https://skillicons.dev/icons?i=react,vite,tailwind,js,html,css,nodejs,npm,python,flask,git,github&perline=12" alt="stack"></div>
+</header>
+
+<section id="features"><h2 class="reveal"><span class="en">Everything inside</span><span class="fa">هرآنچه داخل پروژه است</span></h2><p class="lead reveal"><span class="en">Chat, design, account and admin — all in one small project.</span><span class="fa">چت، طراحی، حساب کاربری و ادمین — همه در یک پروژه‌ی کوچک.</span></p>
+<div class="grid">
+  <div class="card reveal"><div class="ic">💬</div><h3><span class="en">Markdown chat</span><span class="fa">چت با مارک‌داون</span></h3><p><span class="en">Tables, lists and links, sanitized with DOMPurify.</span><span class="fa">جدول، لیست و لینک با پاک‌سازی امن DOMPurify.</span></p></div>
+  <div class="card reveal"><div class="ic">🧑‍💻</div><h3><span class="en">Pro code blocks</span><span class="fa">بلوک کد حرفه‌ای</span></h3><p><span class="en">Language label, highlighting and one-click copy.</span><span class="fa">نام زبان، رنگ‌آمیزی کد و کپی با یک کلیک.</span></p></div>
+  <div class="card reveal"><div class="ic">🔮</div><h3><span class="en">Thinking orbs</span><span class="fa">اوربِ تفکر</span></h3><p><span class="en">Animated loading states while the AI works.</span><span class="fa">حالت‌های بارگذاری متحرک هنگام پاسخ‌دهی.</span></p></div>
+  <div class="card reveal"><div class="ic">🌗</div><h3><span class="en">Dark & light</span><span class="fa">تاریک و روشن</span></h3><p><span class="en">Black palette #111 / #151515 / #20201f.</span><span class="fa">پالت مشکی #111 / #151515 / #20201f.</span></p></div>
+  <div class="card reveal"><div class="ic">🧩</div><h3>HeroUI</h3><p><span class="en">100% HeroUI components, full-height layout.</span><span class="fa">کامپوننت‌های کامل HeroUI و چیدمان تمام‌قد.</span></p></div>
+  <div class="card reveal"><div class="ic">🎬</div><h3><span class="en">Animations</span><span class="fa">انیمیشن</span></h3><p><span class="en">Framer Motion everywhere, can be switched off.</span><span class="fa">Framer Motion در همه‌جا، قابل خاموش شدن.</span></p></div>
+  <div class="card reveal"><div class="ic">👋</div><h3><span class="en">80 greetings</span><span class="fa">۸۰ خوشامدگویی</span></h3><p><span class="en">Time-aware, random on every new chat.</span><span class="fa">متناسب با ساعت و تصادفی در هر چت جدید.</span></p></div>
+  <div class="card reveal"><div class="ic">😀</div><h3><span class="en">Apple-style emoji</span><span class="fa">ایموجی سبک اپل</span></h3><p><span class="en">Same look on every device, swappable set.</span><span class="fa">ظاهر یکسان روی همه‌ی دستگاه‌ها، قابل تعویض.</span></p></div>
+  <div class="card reveal"><div class="ic">⚙️</div><h3><span class="en">Settings page</span><span class="fa">صفحه‌ی تنظیمات</span></h3><p><span class="en">Profile, stats, theme, chat defaults.</span><span class="fa">پروفایل، آمار، تم و پیش‌فرض‌های چت.</span></p></div>
+  <div class="card reveal"><div class="ic">🛠️</div><h3><span class="en">Admin panel</span><span class="fa">پنل ادمین</span></h3><p><span class="en">Live workers, queue and history.</span><span class="fa">ورکرها، صف و تاریخچه به‌صورت زنده.</span></p></div>
+  <div class="card reveal"><div class="ic">🔐</div><h3><span class="en">Auth & sessions</span><span class="fa">ورود و نشست‌ها</span></h3><p><span class="en">Register, login, restore session, manage chats.</span><span class="fa">ثبت‌نام، ورود، بازیابی نشست و مدیریت چت‌ها.</span></p></div>
+  <div class="card reveal"><div class="ic">📱</div><h3><span class="en">Responsive</span><span class="fa">واکنش‌گرا</span></h3><p><span class="en">Sidebar drawer on mobile, PWA icons.</span><span class="fa">کشوی سایدبار در موبایل و آیکن‌های PWA.</span></p></div>
+</div></section>
+
+<section id="start"><h2 class="reveal"><span class="en">Quick start</span><span class="fa">شروع سریع</span></h2><p class="lead reveal"><span class="en">You need Node.js 18+ and a running backend.</span><span class="fa">به Node.js نسخه‌ی ۱۸+ و یک بک‌اند در حال اجرا نیاز دارید.</span></p>
+<div class="steps">
+  <div class="step reveal"><h3><span class="en">Clone & install</span><span class="fa">کلون و نصب</span></h3><div class="code"><button class="btn cp">Copy</button><pre>git clone https://github.com/kiomaku/sams-frontend.git
+cd sams-frontend
+npm install</pre></div></div>
+  <div class="step reveal"><h3><span class="en">Create your .env</span><span class="fa">ساخت فایل .env</span></h3><p><span class="en">Copy the template and edit it. It is git-ignored, never commit it.</span><span class="fa">قالب را کپی و ویرایش کنید. در Git نادیده گرفته می‌شود؛ هرگز کامیتش نکنید.</span></p><div class="code"><button class="btn cp">Copy</button><pre>cp .env.example .env</pre></div></div>
+  <div class="step reveal"><h3><span class="en">Start your backend</span><span class="fa">بک‌اند را اجرا کنید</span></h3><p><span class="en">Run your Python API on port 5000 (or change API_PROXY_TARGET).</span><span class="fa">API پایتون را روی پورت ۵۰۰۰ اجرا کنید (یا API_PROXY_TARGET را تغییر دهید).</span></p></div>
+  <div class="step reveal"><h3><span class="en">Run the frontend</span><span class="fa">اجرای فرانت‌اند</span></h3><div class="code"><button class="btn cp">Copy</button><pre>npm start</pre></div><p><span class="en">Open</span><span class="fa">باز کنید:</span> <code>http://localhost:5173</code></p></div>
+</div></section>
+
+<section id="config"><h2 class="reveal"><span class="en">Configuration</span><span class="fa">پیکربندی</span> (.env)</h2><p class="lead reveal"><span class="en">Everything is optional.</span><span class="fa">همه‌چیز اختیاری است.</span></p>
+<table class="reveal"><tr><th><span class="en">Variable</span><span class="fa">متغیر</span></th><th><span class="en">Default</span><span class="fa">پیش‌فرض</span></th><th><span class="en">Meaning</span><span class="fa">توضیح</span></th></tr>
+<tr><td><code>VITE_APP_NAME</code></td><td><code>SamS</code></td><td><span class="en">Name shown in the UI</span><span class="fa">نام نمایش‌داده‌شده در رابط</span></td></tr>
+<tr><td><code>VITE_ADMIN_EMAILS</code></td><td>—</td><td><span class="en">Comma-separated emails that see Admin (UI-only)</span><span class="fa">ایمیل‌هایی که تب ادمین را می‌بینند (فقط ظاهری)</span></td></tr>
+<tr><td><code>VITE_API_BASE</code></td><td>—</td><td><span class="en">Empty = same-origin /api. Or https://api.example.com (needs CORS + credentials)</span><span class="fa">خالی = همان دامنه /api. یا https://api.example.com (نیاز به CORS و credentials)</span></td></tr>
+<tr><td><code>API_PROXY_TARGET</code></td><td><code>http://127.0.0.1:5000</code></td><td><span class="en">Dev proxy target</span><span class="fa">مقصد پروکسی توسعه</span></td></tr>
+<tr><td><code>DEV_PORT</code></td><td><code>5173</code></td><td><span class="en">Dev server port</span><span class="fa">پورت سرور توسعه</span></td></tr></table>
+<div class="note reveal">⚠️ <span class="en">Variables starting with VITE_ are bundled into public JavaScript. Never put secrets in them.</span><span class="fa">متغیرهای VITE_ داخل جاوااسکریپت عمومی قرار می‌گیرند. هرگز راز و رمزی در آن‌ها نگذارید.</span></div></section>
+
+<section id="deploy"><h2 class="reveal"><span class="en">Deploy</span><span class="fa">استقرار</span></h2><p class="lead reveal"><span class="en">Build once, then pick how to serve dist/.</span><span class="fa">یک‌بار بسازید، سپس روش سرو کردن dist/ را انتخاب کنید.</span></p>
+<div class="code"><button class="btn cp">Copy</button><pre>npm run build</pre></div>
+<div class="tabs" data-tabs><button class="tab on" data-p="p1">Flask</button><button class="tab" data-p="p2">Nginx</button><button class="tab" data-p="p3"><span class="en">Separate domain</span><span class="fa">دامنه‌ی جدا</span></button></div>
+<div class="panel on" id="p1"><p><span class="en">Serve the build from your Python app, same origin, no CORS.</span><span class="fa">بیلد را از همان اپ پایتون سرو کنید؛ هم‌مبدأ و بدون CORS.</span></p><div class="code"><button class="btn cp">Copy</button><pre>app = Flask(__name__, static_folder="dist", static_url_path="")
+
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")</pre></div></div>
+<div class="panel" id="p2"><p><span class="en">Reverse proxy; keep the timeout generous, replies can be slow.</span><span class="fa">پروکسی معکوس؛ تایم‌اوت را بزرگ بگذارید، پاسخ‌ها ممکن است کند باشند.</span></p><div class="code"><button class="btn cp">Copy</button><pre>server {
+  listen 80;
+  root /var/www/sams/dist;
+  location /api/ {
+    proxy_pass http://127.0.0.1:5000;
+    proxy_read_timeout 180s;
+  }
+  location / { try_files $uri /index.html; }
+}</pre></div></div>
+<div class="panel" id="p3"><p><span class="en">Set VITE_API_BASE and enable CORS with credentials on the backend (and SameSite=None; Secure cookies on https).</span><span class="fa">VITE_API_BASE را تنظیم کنید و در بک‌اند CORS با credentials را فعال کنید (روی https کوکی SameSite=None; Secure).</span></p><div class="code"><button class="btn cp">Copy</button><pre>VITE_API_BASE=https://api.example.com</pre></div></div></section>
+
+<section id="views"><h2 class="reveal"><span class="en">App views (routes)</span><span class="fa">صفحه‌ها (مسیرها)</span></h2><p class="lead reveal"><span class="en">No URL router: the address stays "/" so any static host works.</span><span class="fa">بدون روتر URL: آدرس همیشه «/» است و هر هاست استاتیکی کار می‌کند.</span></p>
+<table class="reveal"><tr><th><span class="en">View</span><span class="fa">صفحه</span></th><th><span class="en">How to open</span><span class="fa">روش باز کردن</span></th><th><span class="en">Who</span><span class="fa">چه کسی</span></th></tr>
+<tr><td><span class="en">Login / Sign up</span><span class="fa">ورود / ثبت‌نام</span></td><td><span class="en">Automatic when logged out</span><span class="fa">خودکار وقتی وارد نشده‌اید</span></td><td><span class="en">Everyone</span><span class="fa">همه</span></td></tr>
+<tr><td><span class="en">Chat</span><span class="fa">چت</span></td><td><span class="en">Default · New chat · a recent chat</span><span class="fa">پیش‌فرض · چت جدید · یک چت اخیر</span></td><td><span class="en">Logged in</span><span class="fa">واردشده</span></td></tr>
+<tr><td><span class="en">Settings</span><span class="fa">تنظیمات</span></td><td><span class="en">Account menu → Settings</span><span class="fa">منوی حساب ← Settings</span></td><td><span class="en">Logged in</span><span class="fa">واردشده</span></td></tr>
+<tr><td>Admin</td><td><span class="en">Sidebar → Admin</span><span class="fa">سایدبار ← Admin</span></td><td>VITE_ADMIN_EMAILS</td></tr></table></section>
+
+<section id="api"><h2 class="reveal"><span class="en">API guide</span><span class="fa">راهنمای API</span></h2><p class="lead reveal"><span class="en">Session-cookie auth. Send cookies with every request. Full details in</span><span class="fa">احراز هویت با کوکی نشست. کوکی را با هر درخواست بفرستید. جزئیات کامل در</span> <a href="https://github.com/kiomaku/sams-frontend/blob/main/docs/API.md">API.md</a>.</p>
+<div class="grid">
+  <div class="card reveal"><div class="ep"><span class="m POST">POST</span><code>/api/auth/register</code></div><p><span class="en">Create account: email + password (8+).</span><span class="fa">ساخت حساب: ایمیل + رمز (حداقل ۸ نویسه).</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m POST">POST</span><code>/api/auth/login</code></div><p><span class="en">Log in, sets the cookie.</span><span class="fa">ورود و ست شدن کوکی.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m POST">POST</span><code>/api/auth/logout</code></div><p><span class="en">Clear the session.</span><span class="fa">پاک کردن نشست.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m GET">GET</span><code>/api/auth/me</code></div><p><span class="en">Restore login on page load (401 = not logged in).</span><span class="fa">بازیابی ورود هنگام بارگذاری (۴۰۱ = وارد نشده).</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m POST">POST</span><code>/api/chat</code> <span class="lock">🔒</span></div><p><span class="en">Send a message. No session_id = new chat. Returns Markdown.</span><span class="fa">ارسال پیام. بدون session_id = چت جدید. خروجی Markdown است.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m GET">GET</span><code>/api/sessions</code> <span class="lock">🔒</span></div><p><span class="en">List your chats.</span><span class="fa">فهرست چت‌های شما.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m GET">GET</span><code>/api/sessions/&lt;id&gt;</code> <span class="lock">🔒</span></div><p><span class="en">Full message history.</span><span class="fa">تاریخچه‌ی کامل پیام‌ها.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m DELETE">DELETE</span><code>/api/sessions/&lt;id&gt;</code> <span class="lock">🔒</span></div><p><span class="en">Delete one of your chats.</span><span class="fa">حذف یکی از چت‌های شما.</span></p></div>
+  <div class="card reveal"><div class="ep"><span class="m GET">GET</span><code>/api/status</code></div><p><span class="en">Workers, queue depth, history count (public, polled every 3s).</span><span class="fa">ورکرها، عمق صف و تعداد تاریخچه (عمومی، هر ۳ ثانیه).</span></p></div>
+</div>
+<div class="code reveal"><button class="btn cp">Copy</button><pre>POST /api/chat
+{ "message": "hi", "session_id": 3, "personality": "chill", "goals": "be helpful", "red_lines": "stay respectful", "history": true }
+
+→ { "success": true, "response": "Hello!", "worker": 3, "session_id": 3 }
+503 stage: "queue_timeout"      // <span class="en">all workers busy</span><span class="fa">all workers busy</span>
+502 stage: "retries_exhausted"  // worker failed</pre></div></section>
+
+<section id="custom"><h2 class="reveal"><span class="en">Make it yours</span><span class="fa">شخصی‌سازی</span></h2>
+<div class="grid">
+  <div class="card reveal"><div class="ic">🎨</div><h3><span class="en">Colors</span><span class="fa">رنگ‌ها</span></h3><p><code>tailwind.config.js</code></p></div>
+  <div class="card reveal"><div class="ic">👋</div><h3><span class="en">Greetings & titles</span><span class="fa">خوشامد و عنوان‌ها</span></h3><p><code>src/greetings.js</code> · <code>src/titles.js</code></p></div>
+  <div class="card reveal"><div class="ic">🖼️</div><h3><span class="en">Logo</span><span class="fa">لوگو</span></h3><p><span class="en">Replace files in</span><span class="fa">فایل‌های پوشه‌ی</span> <code>public/</code> <span class="en"></span><span class="fa">را جایگزین کنید</span></p></div>
+  <div class="card reveal"><div class="ic">😀</div><h3><span class="en">Emoji set</span><span class="fa">مجموعه‌ی ایموجی</span></h3><p><code>BASE</code> <span class="en">in</span><span class="fa">در</span> <code>src/emoji.js</code></p></div>
+</div>
+<div class="note reveal">ℹ️ <span class="en">Apple's emoji artwork belongs to Apple. Check licensing for public or commercial use, or switch the set.</span><span class="fa">طرح ایموجی‌های اپل متعلق به اپل است. برای استفاده‌ی عمومی یا تجاری مجوز را بررسی کنید یا مجموعه را عوض کنید.</span></div></section>
+
+<section id="help"><h2 class="reveal"><span class="en">Troubleshooting</span><span class="fa">رفع اشکال</span></h2>
+<details class="reveal"><summary><span class="en">The page looks unstyled</span><span class="fa">صفحه بدون استایل دیده می‌شود</span></summary><p><span class="en">Tailwind is not scanning HeroUI. Stop the server, then:</span><span class="fa">Tailwind کلاس‌های HeroUI را نمی‌خواند. سرور را متوقف کنید و:</span></p><div class="code"><button class="btn cp">Copy</button><pre>rm -rf node_modules/.vite
+npm install
+npm start</pre></div></details>
+<details class="reveal"><summary><span class="en">Replies fail with 502 / 503</span><span class="fa">پاسخ‌ها با خطای ۵۰۲ / ۵۰۳ شکست می‌خورند</span></summary><p><span class="en">503 queue_timeout: all workers are busy. 502 retries_exhausted: the worker failed. Behind a proxy, raise the read timeout.</span><span class="fa">۵۰۳: همه‌ی ورکرها مشغول‌اند. ۵۰۲: ورکر پس از چند تلاش شکست خورد. پشت پروکسی، تایم‌اوت خواندن را بیشتر کنید.</span></p></details>
+<details class="reveal"><summary><span class="en">Code shows as one plain line</span><span class="fa">کد به‌صورت یک خط ساده نمایش داده می‌شود</span></summary><p><span class="en">The API must return Markdown with ``` fences and real line breaks. The frontend can't rebuild lost newlines.</span><span class="fa">API باید Markdown با فِنس ``` و خط‌های جدید واقعی برگرداند. فرانت‌اند نمی‌تواند خط‌های ازدست‌رفته را بازسازی کند.</span></p></details>
+<details class="reveal"><summary><span class="en">I get logged out on reload</span><span class="fa">با رفرش از حساب خارج می‌شوم</span></summary><p><span class="en">The session cookie isn't sent. Use the same origin (proxy) or enable CORS with credentials and proper SameSite cookies.</span><span class="fa">کوکی نشست ارسال نمی‌شود. از همان دامنه (پروکسی) استفاده کنید یا CORS با credentials و کوکی SameSite مناسب را فعال کنید.</span></p></details>
+<details class="reveal"><summary><span class="en">Emoji images don't load</span><span class="fa">تصاویر ایموجی بارگذاری نمی‌شوند</span></summary><p><span class="en">The CDN may be blocked. They fall back to your system emoji; or host the set yourself and change BASE.</span><span class="fa">ممکن است CDN مسدود باشد. به ایموجی سیستم برمی‌گردند؛ یا مجموعه را خودتان میزبانی کنید و BASE را عوض کنید.</span></p></details></section>
+
+<footer>MIT · SamS ✨<br><a href="https://github.com/kiomaku/sams-frontend">github.com/kiomaku/sams-frontend</a></footer>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)],h=document.documentElement;
+const sl=(k,d)=>{try{return localStorage.getItem(k)||d}catch{return d}},ss=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
+h.lang=sl('lang',(navigator.language||'').startsWith('fa')?'fa':'en');h.dataset.theme=sl('theme',matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+$('#lang').onclick=()=>{h.lang=h.lang==='en'?'fa':'en';ss('lang',h.lang)};
+$('#theme').onclick=()=>{h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';ss('theme',h.dataset.theme)};
+$$('.cp').forEach(b=>b.onclick=async()=>{const t=b.nextElementSibling.innerText;try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy',1800)});
+$$('[data-tabs] .tab').forEach(t=>t.onclick=()=>{$$('[data-tabs] .tab').forEach(x=>x.classList.toggle('on',x===t));$$('.panel').forEach(p=>p.classList.toggle('on',p.id===t.dataset.p))});
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&(x.target.classList.add('in'),io.unobserve(x.target))),{threshold:.12});$$('.reveal').forEach((e,i)=>{e.style.transitionDelay=(i%4)*60+'ms';io.observe(e)});
+const links=$$('nav .links a'),so=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+x.target.id))),{rootMargin:'-45% 0px -50% 0px'});$$('section').forEach(s=>so.observe(s));
+</script>
+</body></html>
